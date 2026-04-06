@@ -149,10 +149,10 @@ pull_gitconfig() {
 
     # 临时目录用于克隆仓库
     temp_dir=$(mktemp -d)
-    repo_url="https://github.com/ukyang0623/iris-config.git"
+    repo_url="https://github.com/ukyang0623/dotfile.git"
     
     # 克隆仓库，适配内网无ssl证书环境
-    log_info "克隆iris-config..."
+    log_info "克隆dotfile..."
     if git clone -c http.sslverify=false "$repo_url" "$temp_dir"; then
         # 查找.gitconfig文件
         if [ -f "$temp_dir/.gitconfig" ]; then

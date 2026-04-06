@@ -42,6 +42,10 @@ install_zsh() {
         # macOS
         log_info "检测到 macOS 系统，使用 brew 安装"
         brew install zsh curl git
+    elif command -v apk &> /dev/null; then
+        # Alpine
+        log_info "检测到 Alpine 系统，使用 apk 安装"
+        apk add zsh git curl wget
     else
         log_error "不支持的系统或包管理器"
         exit 1
