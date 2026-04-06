@@ -101,8 +101,8 @@ local config = {
     -- 推荐使用 Nerd Font 字体以支持图标
     font = wezterm.font_with_fallback {
         { family = 'Lilex Nerd Font Propo', weight = 'Regular' },
-        { family = 'Hack Nerd Font',        weight = 'Bold' },
-        { family = 'LXGW WenKai',           stretch = 'Expanded', weight = 'Regular', italic = false, },
+        -- { family = 'Hack Nerd Font',        weight = 'Bold' },
+        -- { family = 'LXGW WenKai',           stretch = 'Expanded', weight = 'Regular', italic = false, },
     },
     font_size = 15.0,
     foreground_text_hsb = {
@@ -169,11 +169,12 @@ local config = {
 
 if wezterm.target_triple:find("windows") then
     -- Windows 配置
-    config.default_prog = { "wsl.exe", "-u", "root", "--cd", "/mnt/c/Users/ukyan/.config/wezterm/" } -- 默认使用 wsl
+    -- config.default_prog = { "wsl.exe", "-u", "root", "--cd", "/mnt/c/Users/ukyang/.config/wezterm/" } -- 默认使用 wsl
+    config.default_prog = { "wsl.exe", "-u", "root", "--cd", "~", "-e", "zsh" }
     config.launch_menu = {
         {
-            label = "Ubuntu-24.04-dev",
-            args = { "wsl.exe", "-d", "test", "-u", "root", "--cd", "/mnt/c/Users/ukyan/.config/wezterm/" }
+            label = "alpine-3.23.3-dev（wsl）",
+            args = { "wsl.exe", "-d", "alpine-3.23.3-dev", "-u", "root","-e","zsh", "--cd", "~/" }
         },
         { label = "Powershell", args = { "powershell.exe" } },
     }
@@ -195,7 +196,7 @@ end
 
 -- === 键盘快捷键 ===
 -- SUPER, CMD, WIN - these are all equivalent: on macOS the Command key, on Windows the Windows key, on Linux this can also be the Super or Hyper key. Left and right are equivalent.
-config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 10000 }
+config.leader = { key = 'b', mods = 'CTRL', timeout_milliseconds = 10000 }
 
 config.keys = {
     -- Prompt for a name to use for a new workspace and switch to it.
