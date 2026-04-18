@@ -5,3 +5,5 @@ if ! pgrep -x dockerd > /dev/null 2>&1; then
     # 等待 2 秒确保启动完成
     # sleep 2
 fi
+
+alias dev='docker exec -it dev-env-ukyang zsh'
