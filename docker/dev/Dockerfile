@@ -256,6 +256,9 @@ EOF
 
 ENV SHELL=/bin/zsh
 
+# 安装dotfile
+RUN git clone https://ghfast.top/https://github.com/ukyang0623/dotfile ~/
+
 # 8. 复制你的 dotfiles（假设你有本地配置文件）
 # COPY --chown=developer:developer .config /home/developer/.config
 

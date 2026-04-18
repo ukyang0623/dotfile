@@ -13,8 +13,8 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      # 挂载代码目录
-      # - ${CODE_DIR:-./workspace}:/home/ukyang/workspace
+      # 挂dotfile目录
+      - ${DOTFILE_DIR:-/root/dotfile}:/home/ukyang/dotfile
       # 挂载 SSH 密钥（从宿主机，只读）
       # - ${HOME}/.ssh:/home/ukyang/.ssh:ro
       # 挂载 Git 配置
