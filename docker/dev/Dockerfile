@@ -63,6 +63,8 @@ RUN groupadd developer && \
     mkdir -p /go && \
     chown ${DEVELOPER_NAME}:developer /go && \
     chmod 2775 /go
+USER ${DEVELOPER_NAME}
+WORKDIR /home/${DEVELOPER_NAME}
     
 # 4. 安装 Go SDK
 RUN wget -O /tmp/go.tar.gz "https://mirrors.aliyun.com/golang/go${GO_VERSION}.linux-amd64.tar.gz" && \
@@ -77,12 +79,10 @@ RUN wget -O /tmp/nvim.tar.gz "https://ghfast.top/https://github.com/neovim/neovi
     rm /tmp/nvim.tar.gz && \
     # 安装 Irisvim
     git clone --depth 1 https://ghfast.top/https://github.com/ukyang0623/dotfile.git /tmp/dotfile && \
-    mv /tmp/dotfile/docker/dev/.config ~/
+    mv /tmp/dotfile/docker/dev/.config ~/ && \
+    rm -rf /tmp/dotfile
 
 # 生成SSH密钥对
-USER ${DEVELOPER_NAME}
-WORKDIR /home/${DEVELOPER_NAME}
-
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
 # 创建智能初始化脚本
 RUN cat > ~/.ssh/init-ssh.sh <<'EOF'
