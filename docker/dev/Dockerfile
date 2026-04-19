@@ -12,6 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     GO_VERSION=1.23.8 \
     GOPATH=/go \
     NEOVIM_VERSION=nightly \
+    LAZYGIT_VERSION=0.61.0 \
     DEVELOPER_NAME=ukyang \
     DEVELOPER_NAME_CN=马阳 \
     DEVELOPER_EMAIL=ukyang0623@gmail.com
@@ -66,6 +67,12 @@ RUN wget -O /tmp/nvim.tar.gz "https://ghfast.top/https://github.com/neovim/neovi
     tar -C /usr/local -xzf /tmp/nvim.tar.gz && \
     mv /usr/local/nvim-linux-x86_64 /usr/local/nvim && \
     rm /tmp/nvim.tar.gz
+
+# 安装 Lazygit
+RUN wget -O /tmp/lazygit.tar.gz "https://ghfast.top/https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_linux_x86_64.tar.gz" && \
+    tar -C /tmp -xzf /tmp/lazygit.tar.gz && \
+    mv /tmp/lazygit /usr/local/bin/lazygit && \
+    rm /tmp/lazygit.tar.gz
 
 # 6. 配置开发用户（避免使用 root）
 RUN groupadd developer && \
@@ -237,6 +244,7 @@ alias ohmyzsh="vim ~/.oh-my-zsh"
 alias srczsh="source ~/.zshrc"
 alias ll="ls -alh"
 alias nv="nvim"
+alias lg="lazygit"
 
 # 历史命令配置
 HISTFILE=~/.zsh_history
