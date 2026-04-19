@@ -48,12 +48,16 @@ RUN apt update && apt install -y --no-install-recommends \
     curl \
     wget \
     tar \
+    # rg命令，用于增强代码搜索功能
     ripgrep \
     # xlip所需相关依赖
     # xorg \
     # xclip \
     autojump \
+    # ssh相关依赖
     openssh-client \
+    # claude code相关依赖
+    libstdc++6
     sudo \
     # 用于确保HTTPS源能正常验证
     ca-certificates && \
@@ -91,6 +95,9 @@ RUN groupadd developer && \
     chmod -R 2775 /go
 USER ${DEVELOPER_NAME}
 WORKDIR /home/${DEVELOPER_NAME}
+
+# 安装claude code（以开发用户权限安装，避免安装到/root路径下）
+RUN curl -fsSL https://claude.ai/install.sh | bash
 
 # 生成SSH密钥对
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
@@ -207,7 +214,8 @@ if [ -d /etc/profile.d ]; then
         fi
     done
 fi
-export PATH="/usr/local/nvim/bin:/usr/local/go/bin:/go/bin:$PATH"
+# ~/.local/bin是cc相关的bin
+export PATH="~/.local/bin:/usr/local/nvim/bin:/usr/local/go/bin:/go/bin:$PATH"
 
 # 启用 PowerLevel10k 主题
 ZSH_THEME="powerlevel10k/powerlevel10k"
