@@ -61,6 +61,10 @@
       "rev": "1ea6ecb9cf1b961e507f39d4b4f37e89b7c72011",
       "src": "https://codeberg.org/andyg/leap.nvim"
     },
+    "lsp-mason-lspconfig.nvim": {
+      "rev": "0a3b42c3e503df87aef6d6513e13148381495c3a",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
     "lsp-mason.nvim": {
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/mason-org/mason.nvim"
