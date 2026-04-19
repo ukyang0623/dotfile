@@ -112,10 +112,10 @@ RUN echo "安装 Claude Code..." && \
     fi
 
 # 安装claude-code-router
-RUN npm install -g @musistudio/claude-code-router && \
-    mkdir -p /home/{DEVELOPER_NAME}/.claude-code-router && \
-    chown -R ${DEVELOPER_NAME}:developer /home/${DEVELOPER_NAME}/.claude-code-router && \
-    chmod -R 755 /home/${DEVELOPER_NAME}/.claude-code-router
+RUN sudo npm install -g @musistudio/claude-code-router && \
+    sudo mkdir -p /home/${DEVELOPER_NAME}/.claude-code-router && \
+    sudo chown -R ${DEVELOPER_NAME}:developer /home/${DEVELOPER_NAME}/.claude-code-router && \
+    sudo chmod -R 755 /home/${DEVELOPER_NAME}/.claude-code-router
 
 # 生成SSH密钥对
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
