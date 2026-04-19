@@ -50,19 +50,18 @@ RUN apt update && apt install -y --no-install-recommends \
     tar \
     ripgrep \
     # xlip所需相关依赖
-    xorg \
-    xclip \
+    # xorg \
+    # xclip \
     autojump \
     openssh-client \
+    sudo \
     # 用于确保HTTPS源能正常验证
-    ca-certificates \
+    ca-certificates && \
+    # nodejs
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt install -y --no-install-recommends nodejs && \
     # 清理缓存
-    && rm -rf /var/lib/apt/lists/*
-
-# 安装 nodejs 
-RUN curl -o- https://ghfast.top/https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash && \
-    nvm install --lts && \
-    nvm use --lts
+    rm -rf /var/lib/apt/lists/*
 
 # 4. 安装 Go SDK
 RUN wget -O /tmp/go.tar.gz "https://mirrors.aliyun.com/golang/go${GO_VERSION}.linux-amd64.tar.gz" && \
