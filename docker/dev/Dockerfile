@@ -37,8 +37,8 @@ RUN echo "Types: deb" > /etc/apt/sources.list.d/debian.sources && \
 
 # 2. 如果有代理，配置代理
 RUN if [ -n "$HTTP_PROXY" ]; then \
-        echo "Acquire::http::Proxy \"$HTTP_PROXY\";" > /etc/apt/apt.conf.d/proxy.conf && \
-        echo "Acquire::https::Proxy \"$HTTPS_PROXY\";" >> /etc/apt/apt.conf.d/proxy.conf; \
+    echo "Acquire::http::Proxy \"$HTTP_PROXY\";" > /etc/apt/apt.conf.d/proxy.conf && \
+    echo "Acquire::https::Proxy \"$HTTPS_PROXY\";" >> /etc/apt/apt.conf.d/proxy.conf; \
     fi
 
 # 3. 安装开发环境基础依赖
@@ -101,15 +101,21 @@ WORKDIR /home/${DEVELOPER_NAME}
 # 安装claude code（以开发用户权限安装，避免安装到/root路径下）
 RUN echo "安装 Claude Code..." && \
     if [ -n "${HTTP_PROXY}" ]; then \
-        echo "通过代理安装..." && \
-        curl -fsSL --proxy "${HTTP_PROXY}" https://claude.ai/install.sh | bash; \
+    echo "通过代理安装..." && \
+    curl -fsSL --proxy "${HTTP_PROXY}" https://claude.ai/install.sh | bash; \
     else \
-        echo "尝试直接安装..." && \
-        # 尝试不同的源
-        curl -fsSL https://claude.ai/install.sh 2>/dev/null | grep -q "#!/bin/bash" && \
-            curl -fsSL https://claude.ai/install.sh | bash || \
-        echo "Claude 安装脚本不可用，跳过安装"; \
+    echo "尝试直接安装..." && \
+    # 尝试不同的源
+    curl -fsSL https://claude.ai/install.sh 2>/dev/null | grep -q "#!/bin/bash" && \
+    curl -fsSL https://claude.ai/install.sh | bash || \
+    echo "Claude 安装脚本不可用，跳过安装"; \
     fi
+
+# 安装claude-code-router
+RUN npm install -g @musistudio/claude-code-router && \
+    mkdir -p /home/{DEVELOPER_NAME}/.claude-code-router && \
+    chown -R ${DEVELOPER_NAME}:developer /home/${DEVELOPER_NAME}/.claude-code-router && \
+    chmod -R 755 /home/${DEVELOPER_NAME}/.claude-code-router
 
 # 生成SSH密钥对
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
@@ -192,15 +198,16 @@ RUN git config --global user.name "${DEVELOPER_NAME}" && \
     git config --global https.sslverify false && \
     # HTTP/HTTPS 代理配置
     if [ -n "${HTTP_PROXY}" ]; then \
-        git config --global http.proxy "${HTTP_PROXY}"; \
+    git config --global http.proxy "${HTTP_PROXY}"; \
     fi && \
     if [ -n "${HTTPS_PROXY}" ]; then \
-        git config --global https.proxy "${HTTPS_PROXY}"; \
+    git config --global https.proxy "${HTTPS_PROXY}"; \
     fi
 
-# 安装 Irisvim
+# 配置 Irisvim & claude-code-router
 RUN git clone --depth 1 https://ghfast.top/https://github.com/ukyang0623/dotfile.git /tmp/dotfile && \
     mv /tmp/dotfile/docker/dev/.config ~/ && \
+    mv /tmp/dotfile/docker/dev/.claude-code-router/config.json ~/.claude-code-router/ && \
     rm -rf /tmp/dotfile
 
 # 7. 安装 Oh My Zsh
