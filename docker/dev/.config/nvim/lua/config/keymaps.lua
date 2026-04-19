@@ -66,7 +66,7 @@ keymap("n", "tr", "<Cmd>RenameTabPage<CR>", { noremap = true, desc = "rename the
 keymap("n", "tp", "<Cmd>Tabby pick_window<CR>", { noremap = true, desc = "pick tab" })
 keymap("n", "tj", "<Cmd>Tabby jump_to_tab<CR>", { noremap = true, desc = "jump to tab" })
 -- git操作
-keymap("n", "<leader>gg", ":LazyGit<CR>", { noremap = true, desc = "open Lazy[G]it" })
+keymap("n", "<leader>gg", ":LazyGitCurrentFile<CR>", { noremap = true, desc = "open Lazy[G]it" })
 -- session操作
 -- keymap("n", "<leader>sw", "<cmd>AutoSession save<CR>", { noremap = true, desc = "save session" })
 -- keymap("n", "<leader>ss", "<cmd>AutoSession search<CR>", { noremap = true, desc = "search session" })
@@ -144,4 +144,12 @@ keymap("n", "<leader>t6", "<Cmd>6ToggleTerm direction=horizontal<CR>", { noremap
 keymap("n", "<leader>t7", "<Cmd>7ToggleTerm direction=horizontal<CR>", { noremap = true, desc = "Toggle terminal 7" })
 keymap("n", "<leader>t8", "<Cmd>8ToggleTerm direction=horizontal<CR>", { noremap = true, desc = "Toggle terminal 8" })
 keymap("n", "<leader>t9", "<Cmd>9ToggleTerm direction=horizontal<CR>", { noremap = true, desc = "Toggle terminal 9" })
-keymap("n", "<leader>tt", "<Cmd>10ToggleTerm direction=float<CR>", { noremap = true, desc = "Toggle terminal 10" })
+keymap("n", "<leader>tf", "<Cmd>10ToggleTerm direction=float<CR>", { noremap = true, desc = "Toggle terminal 10" })
+keymap("n", "<leader>tv", "<Cmd>11ToggleTerm direction=vertical<CR>", { noremap = true, desc = "Toggle terminal 11" })
+keymap("n", "<leader>th", "<Cmd>12ToggleTerm direction=horizontal<CR>", { noremap = true, desc = "Toggle terminal 12" })
+keymap("n", "<leader>tt", "<Cmd>ToggleTerm<CR>", { noremap = true, desc = "Toggle terminal" })
+-- 提效快捷键
+keymap("n", "<leader>rm", "<Cmd>%s/\\r$//g<CR>", { noremap = true, desc = "Remove ^M line endings" })
+-- 缩进美化快捷键
+keymap("n", "<leader>id", "<Cmd>DisableHLChunk<CR>", { noremap = true, desc = "disable chunk" })
+keymap("n", "<leader>ie", "<Cmd>EnableHLChunk<CR>", { noremap = true, desc = "enable chunk" })

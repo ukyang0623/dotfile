@@ -49,6 +49,14 @@
       "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
       "src": "https://github.com/kdheepak/lazygit.nvim"
     },
+    "indent-blankline.nvim": {
+      "rev": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03",
+      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
+    },
+    "indent-hlchunk.nvim": {
+      "rev": "3bc2bd7aef28fbed6643534a0fdd0f19966544bc",
+      "src": "https://github.com/shellRaining/hlchunk.nvim"
+    },
     "jump-leap.nvim": {
       "rev": "1ea6ecb9cf1b961e507f39d4b4f37e89b7c72011",
       "src": "https://codeberg.org/andyg/leap.nvim"

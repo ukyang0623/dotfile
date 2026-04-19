@@ -13,6 +13,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     GOPATH=/go \
     NEOVIM_VERSION=nightly \
     LAZYGIT_VERSION=0.61.0 \
+    NVM_VERSION=0.40.3 \
     DEVELOPER_NAME=ukyang \
     DEVELOPER_NAME_CN=马阳 \
     DEVELOPER_EMAIL=ukyang0623@gmail.com
@@ -48,6 +49,8 @@ RUN apt update && apt install -y --no-install-recommends \
     wget \
     tar \
     ripgrep \
+    # xlip所需相关依赖
+    xorg \
     xclip \
     autojump \
     openssh-client \
@@ -55,6 +58,11 @@ RUN apt update && apt install -y --no-install-recommends \
     ca-certificates \
     # 清理缓存
     && rm -rf /var/lib/apt/lists/*
+
+# 安装 nodejs 
+RUN curl -o- https://ghfast.top/https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash && \
+    nvm install --lts && \
+    nvm use --lts
 
 # 4. 安装 Go SDK
 RUN wget -O /tmp/go.tar.gz "https://mirrors.aliyun.com/golang/go${GO_VERSION}.linux-amd64.tar.gz" && \

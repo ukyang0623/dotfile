@@ -13,6 +13,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
                 end
             end,
             open_mapping = [[<C-\>]],
+            persist_mode = true, -- 记住终端状态
+            persist_size = true, -- 记住终端尺寸
         })
     end
 })

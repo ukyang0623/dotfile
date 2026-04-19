@@ -37,3 +37,4 @@ require("plugins.ui")         -- loaded after VimEnter
 require("plugins.dashboard")
 require("plugins.search")
 require("plugins.terminal")
+require("plugins.indent")
