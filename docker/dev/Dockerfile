@@ -80,8 +80,8 @@ RUN groupadd developer && \
     echo "${DEVELOPER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     # 配置 Go 开发环境，使 /go 目录的所有者为 developer 组，且该目录下的文件自动继承组
     mkdir -p /go && \
-    chown ${DEVELOPER_NAME}:developer /go && \
-    chmod 2775 /go
+    chown -R ${DEVELOPER_NAME}:developer /go && \
+    chmod -R 2775 /go
 USER ${DEVELOPER_NAME}
 WORKDIR /home/${DEVELOPER_NAME}
 
