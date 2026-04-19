@@ -55,6 +55,15 @@ RUN apt update && apt install -y --no-install-recommends \
     # 清理缓存
     && rm -rf /var/lib/apt/lists/*
 
+# 6. 配置开发用户（避免使用 root）
+RUN groupadd developer && \
+    useradd -m -s /bin/bash -g developer ${DEVELOPER_NAME} && \
+    echo "${DEVELOPER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    # 配置 Go 开发环境，使 /go 目录的所有者为 developer 组，且该目录下的文件自动继承组
+    mkdir -p /go && \
+    chown ${DEVELOPER_NAME}:developer /go && \
+    chmod 2775 /go
+    
 # 4. 安装 Go SDK
 RUN wget -O /tmp/go.tar.gz "https://mirrors.aliyun.com/golang/go${GO_VERSION}.linux-amd64.tar.gz" && \
     tar -C /usr/local -xzf /tmp/go.tar.gz && \
@@ -65,16 +74,10 @@ RUN wget -O /tmp/nvim.tar.gz "https://ghfast.top/https://github.com/neovim/neovi
     # tar -C /usr/local --strip-components=1 -xzf /tmp/nvim.tar.gz && \
     tar -C /usr/local -xzf /tmp/nvim.tar.gz && \
     mv /usr/local/nvim-linux-x86_64 /usr/local/nvim && \
-    rm /tmp/nvim.tar.gz
-
-# 6. 配置开发用户（避免使用 root）
-RUN groupadd developer && \
-    useradd -m -s /bin/bash -g developer ${DEVELOPER_NAME} && \
-    echo "${DEVELOPER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
-    # 配置 Go 开发环境，使 /go 目录的所有者为 developer 组，且该目录下的文件自动继承组
-    mkdir -p /go && \
-    chown ${DEVELOPER_NAME}:developer /go && \
-    chmod 2775 /go
+    rm /tmp/nvim.tar.gz && \
+    # 安装 Irisvim
+    git clone --depth 1 https://ghfast.top/https://github.com/ukyang0623/dotfile.git /tmp/dotfile && \
+    mv /tmp/dotfile/docker/dev/.config ~/
 
 # 生成SSH密钥对
 USER ${DEVELOPER_NAME}
