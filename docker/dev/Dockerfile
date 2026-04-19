@@ -48,6 +48,8 @@ RUN apt update && apt install -y --no-install-recommends \
     curl \
     wget \
     tar \
+    iproute2 \
+    iputils-ping \
     # rg命令，用于增强代码搜索功能
     ripgrep \
     # xlip所需相关依赖
@@ -57,7 +59,7 @@ RUN apt update && apt install -y --no-install-recommends \
     # ssh相关依赖
     openssh-client \
     # claude code相关依赖
-    libstdc++6
+    libstdc++6 \
     sudo \
     # 用于确保HTTPS源能正常验证
     ca-certificates && \
@@ -97,7 +99,17 @@ USER ${DEVELOPER_NAME}
 WORKDIR /home/${DEVELOPER_NAME}
 
 # 安装claude code（以开发用户权限安装，避免安装到/root路径下）
-RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN echo "安装 Claude Code..." && \
+    if [ -n "${HTTP_PROXY}" ]; then \
+        echo "通过代理安装..." && \
+        curl -fsSL --proxy "${HTTP_PROXY}" https://claude.ai/install.sh | bash; \
+    else \
+        echo "尝试直接安装..." && \
+        # 尝试不同的源
+        curl -fsSL https://claude.ai/install.sh 2>/dev/null | grep -q "#!/bin/bash" && \
+            curl -fsSL https://claude.ai/install.sh | bash || \
+        echo "Claude 安装脚本不可用，跳过安装"; \
+    fi
 
 # 生成SSH密钥对
 RUN mkdir -p ~/.ssh && chmod 700 ~/.ssh
@@ -215,7 +227,7 @@ if [ -d /etc/profile.d ]; then
     done
 fi
 # ~/.local/bin是cc相关的bin
-export PATH="~/.local/bin:/usr/local/nvim/bin:/usr/local/go/bin:/go/bin:$PATH"
+export PATH="/home/${DEVELOPER_NAME}/.local/bin:/usr/local/nvim/bin:/usr/local/go/bin:/go/bin:$PATH"
 
 # 启用 PowerLevel10k 主题
 ZSH_THEME="powerlevel10k/powerlevel10k"
