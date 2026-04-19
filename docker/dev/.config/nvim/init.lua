@@ -35,3 +35,5 @@ require("plugins.session")    -- loaded after VimEnter
 require("plugins.statusline") -- loaded after VimEnter
 require("plugins.ui")         -- loaded after VimEnter
 require("plugins.dashboard")
+require("plugins.search")
+require("plugins.terminal")
