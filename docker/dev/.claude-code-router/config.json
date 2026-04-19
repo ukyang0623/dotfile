@@ -1,0 +1,21 @@
+{
+    "LOG": false,
+    "HOST": "127.0.0.1",
+    "PORT": 3456,
+    "API_TIMEOUT_MS": 60000,
+    "Providers": [
+        {
+            "name": "modelscope",
+            "api_base_url": "https://api-inference.modelscope.cn/v1/chat/completions",
+            "api_key": "ms-60352e1d-67ca-4f69-a520-c0c7d23744c9",
+            "models": [
+                "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+                "Qwen/Qwen3-235B-A22B-Thinking-2507"
+            ]
+        }
+    ],
+    "Router": {
+        "default": "modelscope,Qwen/Qwen3-Coder-480B-A35B-Instruct",
+        "think": "modelscope,Qwen/Qwen3-235B-A22B-Thinking-2507"
+    }
+}
