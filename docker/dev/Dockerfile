@@ -1,7 +1,10 @@
 # 使用 debian bookworm-slim 版本（体积 ~30MB）
 FROM debian:bookworm-slim
 
-# 构建参数：用于 WSL 宿主机代理加速（构建时传入 --build-arg）
+# 构建参数，构建时通过 --build-arg 传入）
+ARG USER_NAME=""
+ARG USER_NAME_CN=""
+ARG USER_EMAIL=""
 ARG HTTP_PROXY=""
 ARG HTTPS_PROXY=""
 
@@ -14,9 +17,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     NEOVIM_VERSION=nightly \
     LAZYGIT_VERSION=0.61.0 \
     NVM_VERSION=0.40.3 \
-    DEVELOPER_NAME=ukyang \
-    DEVELOPER_NAME_CN=马阳 \
-    DEVELOPER_EMAIL=ukyang0623@gmail.com
+    DEVELOPER_NAME=$USER_NAME \
+    DEVELOPER_NAME_CN=$USER_NAME_CN \
+    DEVELOPER_EMAIL=$USER_EMAIL
 
 # 0. 在换源前先更新并安装 ca-certificates
 RUN cp /etc/apt/sources.list.d/debian.sources /etc/apt/sources.list.d/debian.sources.bak && \

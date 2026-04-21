@@ -1,9 +1,12 @@
 services:
   dev-env:
-    build: 
+    build:
       context: .
       dockerfile: ./dev/Dockerfile
       args:
+        - USER_NAME=${USER_NAME:-}
+        - USER_NAME_CN=${USER_NAME_CN:-}
+        - USER_EMAIL=${USER_EMAIL:-}
         - HTTP_PROXY=${HTTP_PROXY:-}
         - HTTPS_PROXY=${HTTPS_PROXY:-}
     image: dev-env:latest
@@ -35,11 +38,11 @@ services:
       - NO_PROXY=localhost,127.0.0.1
     networks:
       - dev-network
-    # ports:
+      # ports:
       # 如果开发需要暴露端口，可以在这里添加
       # - "8080:8080"
       # - "3000:3000"
-    # 健康检查
+      # 健康检查
     healthcheck:
       test: ["CMD", "test", "-f", "/usr/local/nvim/bin/nvim"]
       interval: 30s
@@ -57,7 +60,7 @@ services:
     #      cpus: '0.5'
     #      memory: 1G
 
-  # 2. Portainer 容器
+    # 2. Portainer 容器
   portainer:
     image: portainer/portainer-ce:2.39.1
     container_name: portainer
