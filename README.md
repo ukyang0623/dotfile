@@ -29,7 +29,11 @@
 - 安装ukyang0623/dotfile 
 > 下载ukyang0623/dotfile代码，放入Alpine WSL虚拟机中（建议放在家目录下） 
 > 执行代码库中的scripts/wsl/alpine.sh脚本
-> 会要求填写一些参数，按需填写即可（包括HTTP代理、运行容器名称）
+> 会要求填写一些参数，按需填写即可。包括：
+> 1. 用户名（英文）
+> 2. 用户名（中文）
+> 3. 用户邮箱
+> 4. HTTP/HTTPS代理
 
 - 重启Alpine WSL虚拟机
 
