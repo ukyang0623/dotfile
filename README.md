@@ -1,5 +1,7 @@
 > 主推工作流：Windows10/11 + WSL2 + Docker + Neovim v0.12+ + Claude Code
+>
 > 如果使用Linux作为日常主力机操作系统，可跳过Windows + WSL，直接构建Docker + Neovim + Claude Code工作流
+>
 > 如果使用MacOS作为日常主力机操作系统，可跳过Windows + WSL，构建其他虚拟机 + Docker + Neovim + Claude Code工作流
 
 - Windows10/11: 主力机操作系统
